@@ -6,13 +6,13 @@ include __DIR__ . '/../partials/head.php';
 ?>
 <h3 class="mb-3 d-flex align-items-center justify-content-between">
   <span>Fotos</span>
-  <a class="btn btn-primary" href="<?=base_url('/admin/fotos_new.php')?>">Nueva foto</a>
+  <a class="btn btn-primary" href="<?=base_url('/admin/fotos_form.php')?>">Nueva foto</a>
 </h3>
 
 <div class="table-responsive">
   <table class="table table-modern">
     <thead>
-      <tr><th>Miniatura</th><th>Título</th><th>Paquete</th><th>Pública</th><th class="text-right">Acciones</th></tr>
+      <tr><th>Miniatura</th><th>Título</th><th>Paquete</th><th>Pública</th><th class="text-center">Acciones</th></tr>
     </thead>
     <tbody>
       <?php foreach($rows as $r): ?>
@@ -21,8 +21,8 @@ include __DIR__ . '/../partials/head.php';
         <td><?=htmlspecialchars($r['title'])?></td>
         <td><?=htmlspecialchars($r['ptitle']?:'—')?></td>
         <td><?=$r['is_public']?'Sí':'No'?></td>
-        <td class="text-right">
-          <a class="btn btn-table btn-sm" href="<?=base_url('/admin/fotos_edit.php?id='.$r['id'])?>">Editar</a>
+        <td class="text-center">
+          <a class="btn btn-table btn-sm" href="<?=base_url('/admin/fotos_form.php?id='.$r['id'])?>">Editar</a>
           <a class="btn btn-danger btn-sm" href="<?=base_url('/admin/fotos_delete.php?id='.$r['id'])?>" onclick="return confirm('¿Eliminar foto?')">Eliminar</a>
         </td>
       </tr>
