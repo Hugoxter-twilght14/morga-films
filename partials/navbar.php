@@ -9,7 +9,6 @@ $role = $_SESSION['role'] ?? null;
   </button>
   <div class="collapse navbar-collapse" id="nav">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item"><a class="nav-link" href="<?=base_url('/public/paquetes.php')?>">Paquetes</a></li>
       <li class="nav-item"><a class="nav-link" href="<?=base_url('/public/fotos.php')?>">Galería</a></li>
       <?php if ($role==='admin'): ?>
         <li class="nav-item"><a class="nav-link" href="<?=base_url('/admin/dashboard.php')?>">Admin</a></li>
