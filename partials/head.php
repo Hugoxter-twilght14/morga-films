@@ -7,9 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap 4 -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .card-img-top{object-fit:cover;height:180px}
-  </style>
+  <!-- Theme -->
+  <link rel="stylesheet" href="<?=base_url('/assets/css/theme.css')?>">
 </head>
 <body>
 <?php include __DIR__ . '/navbar.php'; ?>

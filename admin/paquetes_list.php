@@ -1,87 +1,62 @@
 <?php
 require_once __DIR__ . '/../middleware/admin.php';
 require_once __DIR__ . '/../app/db.php';
-require_once __DIR__ . '/../lib/Pagination.php';
 
-// ---- Flash helpers (mensajes) ----
-function flash_set($type, $msg){ $_SESSION['flash']=['t'=>$type,'m'=>$msg]; }
-function flash_view(){
-  if (!empty($_SESSION['flash'])) {
-    $t = $_SESSION['flash']['t']; $m = $_SESSION['flash']['m'];
-    unset($_SESSION['flash']);
-    echo '<div class="alert alert-'.$t.'">'.$m.'</div>';
+$msg = null;
+if ($_SERVER['REQUEST_METHOD']==='POST' && hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) {
+  if (isset($_POST['delete'])) {
+    $id = (int)$_POST['id'];
+    // Verifica referencias
+    $ref = $pdo->prepare("SELECT COUNT(*) FROM appointment_items WHERE package_id=?");
+    $ref->execute([$id]);
+    if ((int)$ref->fetchColumn()>0) { $msg = ['type'=>'danger','text'=>'No se puede eliminar: hay citas asociadas']; }
+    else {
+      $del = $pdo->prepare("DELETE FROM packages WHERE id=?");
+      $del->execute([$id]);
+      $msg = ['type'=>'success','text'=>'Paquete eliminado'];
+    }
+  }
+  if (isset($_POST['toggle'])) {
+    $id = (int)$_POST['id'];
+    $pdo->prepare("UPDATE packages SET status = IF(status='activo','pausado','activo') WHERE id=?")->execute([$id]);
   }
 }
 
-// ---- Acciones ----
-if (isset($_GET['toggle'])) {
-  $id=(int)$_GET['toggle'];
-  $pdo->prepare("UPDATE packages SET status=IF(status='activo','pausado','activo') WHERE id=?")->execute([$id]);
-  flash_set('success','Estado del paquete actualizado.');
-  redirect_to('/admin/paquetes_list.php');
-}
-
-if (isset($_GET['del'])) {
-  $id=(int)$_GET['del'];
-
-  // 1) ¿Fue usado en citas?
-  $st = $pdo->prepare("SELECT COUNT(*) FROM appointment_items WHERE package_id=?");
-  $st->execute([$id]);
-  $used = (int)$st->fetchColumn();
-
-  if ($used > 0) {
-    // No permitimos borrar para no perder historial
-    flash_set('warning', 'No se puede eliminar este paquete porque ya fue utilizado en citas. Puedes pausarlo.');
-    redirect_to('/admin/paquetes_list.php');
-  }
-
-  // 2) Desasociar fotos (si tiene). Esto evita otros errores FK.
-  $pdo->prepare("UPDATE photos SET package_id=NULL WHERE package_id=?")->execute([$id]);
-
-  // 3) Eliminar paquete
-  try {
-    $pdo->prepare("DELETE FROM packages WHERE id=?")->execute([$id]);
-    flash_set('success', 'Paquete eliminado.');
-  } catch (PDOException $e) {
-    flash_set('danger', 'No se pudo eliminar: '.$e->getMessage());
-  }
-  redirect_to('/admin/paquetes_list.php');
-}
-
-// ---- Listado con paginación ----
-$total = (int)$pdo->query("SELECT COUNT(*) FROM packages")->fetchColumn();
-$pg = paginate_setup($total, 15);
-
-$st = $pdo->prepare("SELECT * FROM packages ORDER BY created_at DESC LIMIT :limit OFFSET :offset");
-$st->bindValue(':limit', $pg['limit'], PDO::PARAM_INT);
-$st->bindValue(':offset', $pg['offset'], PDO::PARAM_INT);
-$st->execute();
-$packs = $st->fetchAll();
-
+$rows = $pdo->query("SELECT * FROM packages ORDER BY id DESC")->fetchAll();
 include __DIR__ . '/../partials/head.php';
-flash_view();
 ?>
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h3>Paquetes</h3>
+<h3 class="mb-3 d-flex align-items-center justify-content-between">
+  <span>Paquetes</span>
   <a class="btn btn-primary" href="<?=base_url('/admin/paquetes_form.php')?>">Nuevo paquete</a>
+</h3>
+<?php if ($msg): ?><div class="alert alert-<?=$msg['type']?>"><?=$msg['text']?></div><?php endif; ?>
+
+<div class="table-responsive">
+  <table class="table table-modern">
+    <thead>
+      <tr><th>Título</th><th>Precio</th><th>Duración</th><th>Estado</th><th class="text-center">Acciones</th></tr>
+    </thead>
+    <tbody>
+      <?php foreach($rows as $r): ?>
+      <tr>
+        <td><?=htmlspecialchars($r['title'])?></td>
+        <td>$<?=number_format($r['price'],2)?></td>
+        <td><?=$r['duration_minutes']?> min</td>
+        <td><?=htmlspecialchars($r['status'])?></td>
+        <td class="text-center">
+          <a class="btn btn-table btn-sm" href="<?=base_url('/admin/paquetes_form.php?id='.$r['id'])?>">Editar</a>
+          <form method="post" class="d-inline">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>"><input type="hidden" name="id" value="<?=$r['id']?>">
+            <button name="toggle" class="btn btn-warning btn-sm"><?=($r['status']==='activo'?'Pausar':'Activar')?></button>
+          </form>
+          <form method="post" class="d-inline" onsubmit="return confirm('¿Eliminar paquete?')">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>"><input type="hidden" name="id" value="<?=$r['id']?>">
+            <button name="delete" class="btn btn-danger btn-sm">Eliminar</button>
+          </form>
+        </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
 </div>
-<table class="table table-striped">
-  <thead><tr><th>Título</th><th>Precio</th><th>Duración</th><th>Estado</th><th></th></tr></thead>
-  <tbody>
-  <?php foreach ($packs as $p): ?>
-    <tr>
-      <td><?=htmlspecialchars($p['title'])?></td>
-      <td>$<?=number_format($p['price'],2)?></td>
-      <td><?=$p['duration_minutes']?> min</td>
-      <td><?=$p['status']?></td>
-      <td class="text-right">
-        <a class="btn btn-sm btn-secondary" href="<?=base_url('/admin/paquetes_form.php')?>?id=<?=$p['id']?>">Editar</a>
-        <a class="btn btn-sm btn-warning" href="<?=base_url('/admin/paquetes_list.php')?>?toggle=<?=$p['id']?>"><?=$p['status']=='activo'?'Pausar':'Activar'?></a>
-        <a class="btn btn-sm btn-danger" href="<?=base_url('/admin/paquetes_list.php')?>?del=<?=$p['id']?>" onclick="return confirm('¿Eliminar paquete? Esta acción no se puede deshacer.')">Eliminar</a>
-      </td>
-    </tr>
-  <?php endforeach; ?>
-  </tbody>
-</table>
-<?= pagination_links($pg, '/admin/paquetes_list.php'); ?>
 <?php include __DIR__ . '/../partials/footer.php'; ?>

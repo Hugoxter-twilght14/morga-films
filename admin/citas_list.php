@@ -1,56 +1,48 @@
 <?php
 require_once __DIR__ . '/../middleware/admin.php';
 require_once __DIR__ . '/../app/db.php';
-require_once __DIR__ . '/../lib/Pagination.php';
 
-if ($_SERVER['REQUEST_METHOD']==='POST') {
-  if (!hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) { http_response_code(400); exit('CSRF'); }
-  $pdo->prepare("UPDATE appointments SET status=? WHERE id=?")->execute([$_POST['status'], (int)$_POST['id']]);
-  redirect_to('/admin/citas_list.php');
+if ($_SERVER['REQUEST_METHOD']==='POST' && hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) {
+  $id = (int)$_POST['id'];
+  $status = $_POST['status'] ?? 'pendiente';
+  $pdo->prepare("UPDATE appointments SET status=? WHERE id=?")->execute([$status,$id]);
 }
 
-$total = (int)$pdo->query("SELECT COUNT(*) FROM appointments")->fetchColumn();
-$pg = paginate_setup($total, 15);
-
-$st = $pdo->prepare("SELECT a.*, u.name, u.email
-                     FROM appointments a JOIN users u ON u.id=a.user_id
-                     ORDER BY a.event_date DESC, a.start_time DESC
-                     LIMIT :limit OFFSET :offset");
-$st->bindValue(':limit', $pg['limit'], PDO::PARAM_INT);
-$st->bindValue(':offset', $pg['offset'], PDO::PARAM_INT);
-$st->execute();
-$apps = $st->fetchAll();
-
+$rows = $pdo->query("SELECT a.*, u.name, u.email FROM appointments a JOIN users u ON u.id=a.user_id ORDER BY a.event_date DESC, a.start_time DESC")->fetchAll();
 include __DIR__ . '/../partials/head.php';
 ?>
-<h3>Citas</h3>
-<table class="table table-striped table-sm">
-  <thead class="thead-light">
-    <tr><th>Cliente</th><th>Fecha/Hora</th><th>Estado</th><th>Total</th><th></th></tr>
-  </thead>
-  <tbody>
-  <?php foreach ($apps as $a): ?>
-    <tr>
-      <td><?=htmlspecialchars($a['name'])?><br><small><?=htmlspecialchars($a['email'])?></small></td>
-      <td><?=$a['event_date']?> <?=$a['start_time']?>-<?=$a['end_time']?></td>
-      <td><?=$a['status']?></td>
-      <td>$<?=number_format($a['total_price'],2)?></td>
-      <td class="text-right">
-        <form method="post" action="<?=base_url('/admin/citas_list.php')?>" class="form-inline justify-content-end">
-          <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-          <input type="hidden" name="id" value="<?=$a['id']?>">
-          <select name="status" class="form-control form-control-sm mr-2">
-            <?php foreach (['pendiente','confirmada','realizada','cancelada'] as $st): ?>
-              <option <?=$a['status']===$st?'selected':''?>><?=$st?></option>
-            <?php endforeach; ?>
-          </select>
-          <button class="btn btn-sm btn-primary">Actualizar</button>
-          <a class="btn btn-sm btn-secondary ml-2" href="<?=base_url('/public/cita_pdf.php')?>?id=<?=$a['id']?>">PDF</a>
-        </form>
-      </td>
-    </tr>
-  <?php endforeach; ?>
-  </tbody>
-</table>
-<?= pagination_links($pg, '/admin/citas_list.php'); ?>
+<h3 class="mb-3">Citas</h3>
+<div class="table-responsive">
+  <table class="table table-modern">
+    <thead>
+      <tr><th>Cliente</th><th>Fecha/Hora</th><th>Estado</th><th>Total</th><th class="text-right">Acciones</th></tr>
+    </thead>
+    <tbody>
+      <?php foreach($rows as $r): ?>
+      <tr>
+        <td>
+          <div><?=htmlspecialchars($r['name'])?></div>
+          <div class="text-muted"><?=htmlspecialchars($r['email'])?></div>
+        </td>
+        <td><?=htmlspecialchars($r['event_date'])?> <?=substr($r['start_time'],0,5)?>–<?=substr($r['end_time'],0,5)?></td>
+        <td class="text-capitalize"><?=htmlspecialchars($r['status'])?></td>
+        <td>$<?=number_format($r['total_price'],2)?></td>
+        <td class="text-right">
+          <form method="post" class="d-inline">
+            <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
+            <input type="hidden" name="id" value="<?=$r['id']?>">
+            <select name="status" class="custom-select custom-select-sm" style="width:140px;display:inline-block">
+              <?php foreach (['pendiente','realizada','cancelada'] as $s): ?>
+                <option value="<?=$s?>" <?=$s===$r['status']?'selected':''?>><?=$s?></option>
+              <?php endforeach; ?>
+            </select>
+            <button class="btn btn-primary btn-sm">Actualizar</button>
+          </form>
+          <a class="btn btn-table btn-sm" target="_blank" href="<?=base_url('/public/cita_pdf.php?id='.$r['id'])?>">PDF</a>
+        </td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</div>
 <?php include __DIR__ . '/../partials/footer.php'; ?>

@@ -145,31 +145,28 @@ flash_view();
     </div>
   </div>
 
-  <div class="col-lg-5">
-    <div class="card">
+   <div class="col-lg-5">
+    <div class="card card-summary">
       <div class="card-body">
-        <h5 class="card-title">Resumen</h5>
-        <ul class="list-group list-group-flush">
+        <h5 class="card-title mb-3">Resumen</h5>
+        <ul class="list-group list-group-flush list-stat">
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            Citas totales <span class="badge badge-primary badge-pill"><?=$tot?></span>
+            Citas totales <span class="badge-soft blue"><?=$tot?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            Próximas <span class="badge badge-info badge-pill"><?=$proximas?></span>
+            Próximas <span class="badge-soft teal"><?=$proximas?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            Realizadas <span class="badge badge-success badge-pill"><?=$realizadas?></span>
+            Realizadas <span class="badge-soft green"><?=$realizadas?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            Canceladas <span class="badge badge-danger badge-pill"><?=$canceladas?></span>
+            Canceladas <span class="badge-soft red"><?=$canceladas?></span>
           </li>
         </ul>
-        <div class="mt-3 d-flex">
-          <a class="btn btn-outline-primary mr-2" href="<?=base_url('/public/paquetes.php')?>">Ver paquetes</a>
-          <a class="btn btn-outline-secondary" href="<?=base_url('/public/mis_citas.php')?>">Mis citas</a>
-        </div>
       </div>
     </div>
   </div>
+
 </div>
 
 <?php include __DIR__ . '/../partials/footer.php'; ?>

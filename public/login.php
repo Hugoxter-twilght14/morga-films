@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 include __DIR__ . '/../partials/head.php';
 ?>
-<h3>Iniciar sesión</h3>
+<h3 class="h3-login">INICIAR SESIÓN</h3>
 <?php if ($error): ?><div class="alert alert-danger"><?=$error?></div><?php endif; ?>
 <form method="post" class="col-md-6 p-0">
   <input type="hidden" name="csrf" value="<?=$_SESSION['csrf']?>">
-  <div class="form-group"><label>Email</label><input class="form-control" type="email" name="email" required></div>
-  <div class="form-group"><label>Contraseña</label><input class="form-control" type="password" name="password" required></div>
+  <div class="form-group"><label>CORREO ELECTRONICO</label><input class="form-control" type="email" name="email" required></div>
+  <div class="form-group"><label>CONTRASEÑA</label><input class="form-control" type="password" name="password" required></div>
   <button class="btn btn-primary">Entrar</button>
   <a class="btn btn-link" href="<?=base_url('/public/register.php')?>">Crear cuenta</a>
 </form>
