@@ -7,7 +7,6 @@
 ![DOMPDF](https://img.shields.io/badge/DOMPDF-PDF%20Generator-EC1C24?style=for-the-badge&logo=adobeacrobatreader&logoColor=white)
 
 ![Morga Films](https://img.shields.io/badge/MORGA%20FILMS-Cine%20Digital-FFD700?style=for-the-badge&logo=clapperboard&logoColor=black)
-![Cine](https://img.shields.io/badge/Cine%20y%20Fotografía-000000?style=for-the-badge&logo=camera&logoColor=white)
 ![Sesiones Fotográficas](https://img.shields.io/badge/Sesiones%20Fotográficas-FF69B4?style=for-the-badge&logo=camera&logoColor=white)
 ![Reservas Web](https://img.shields.io/badge/Reservas-Web-blue?style=for-the-badge&logo=calendar&logoColor=white)
 
@@ -155,3 +154,7 @@ https://hb-studios-official.vercel.app/
 
 Este proyecto está bajo la licencia MIT.
 Puedes usar, modificar y distribuir libremente el código, siempre que se mantenga el crédito al autor original.
+
+![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-yellow?style=for-the-badge)
+![Versión](https://img.shields.io/badge/Versión-1.0.0-blue?style=for-the-badge)
+![Licencia](https://img.shields.io/badge/Licencia-MIT-green?style=for-the-badge)
