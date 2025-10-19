@@ -2,7 +2,7 @@
   <img src="./assets/logo_morga.png" alt="Logotipo de Morga Films" width="200"/>
 </p>
 
-<h1 align="center">PELÍCULAS ðŸŽ¬ MORGA</h1>
+<h1 align="center">MORGA FILMS</h1>
 <p align="center">
   Aplicación web profesional para gestión de sesiones fotográficas, reservas y administración de clientes.
 </p>
@@ -31,7 +31,7 @@
 
 ---
 
-## ðŸ“– Descripción general
+Descripción general
 
 **Morga Films** es una aplicación web creada para gestionar **sesiones fotográficas, clientes y reservas**.  
 Incluye un **panel administrativo**, **generación automática de recibos PDF** mediante DOMPDF y un **diseño responsive** con Bootstrap 5.
@@ -40,59 +40,57 @@ El sistema busca **optimizar la organización de sesiones**, mejorar la comunica
 
 ---
 
-## âœ¨ Características principales
+## Características principales
 
-- ðŸ“¸ Registro y gestión de sesiones fotográficas  
-- ðŸ'¤ Módulo completo de clientes (CRUD)  
-- ðŸ“… Agenda de citas y reservas  
-- ðŸ§¾ Generación automática de recibos PDF  
-- ðŸ” Sistema de inicio de sesión seguro con contraseñas cifradas  
-- ðŸ'¬ Panel administrativo y de cliente separado  
-- ðŸ“± Interfaz completamente responsiva y adaptable  
+- ✏️ Registro y gestión de sesiones fotográficas  
+- 📆 Agenda de citas y reservas  
+- 🖨 Generación automática de recibos PDF  
+- 👤 Sistema de inicio de sesión seguro con contraseñas cifradas  
+- 🖥 Panel administrativo y de cliente separado  
+- 📱 Interfaz completamente responsiva y adaptable  
 
 ---
 
-## âš™ï¸ Instalación y ejecución
+## 📥 Instalación y ejecución
 
-> âš ï¸ **Requisitos previos**
+**Requisitos previos**
 > - PHP 8.0 o superior  
 > - MySQL 8.0  
 > - Servidor local (XAMPP / Laragon)  
 > - Compositor instalado en tu sistema  
 
-### ðŸ”§ Pasos de instalación
+### 📥 Pasos de instalación
 
-``golpe
-# 1ï¸ âƒ£ Clona el repositorio
-clon de git https://github.com/Hugoxter-twilght14/morga_films.git
+# 1. Clona el repositorio:
+> git clone https://github.com/Hugoxter-twilght14/morga_films
 
-# 2ï¸ âƒ£ Copiar los archivos en la carpeta del servidor local
-C:\xampp\htdocs\MORGA-FILMS
+# 2. Copiar los archivos en la carpeta del servidor local:
+> C:\xampp\htdocs\MORGA-FILMS
 
-# 3ï¸ âƒ£ Crea la base de datos en phpMyAdmin
-nombre: morga_films
+# 3. Crea la base de datos en phpMyAdmin
+nombrar la base de datos de la siguiente manera: > morga_films
 
-# 4ï¸ âƒ£ Importa el archivo SQL (morga_films.sql)
-# (Si no estás en el proyecto, descárgalo desde el repositorio o carpeta de respaldo)
+# 4. Importa el archivo SQL (morga_films.sql)
+# (descarga aqui: )
 
 # 5ï¸ âƒ£ Configura tus credenciales en el archivo .env
 ```
 
-### ðŸ“„ Ejemplo de configuración `.env`
+### Ejemplo de configuración `.env`
 
-```env
-# Aplicación
+
+# App
 URL_DE_LA_APLICACIÓN=http://localhost/MORGA-FILMS
-APP_DEBUG=verdadero
-NOMBRE_DE_SESIÓN=morgafilms_sess
+APP_DEBUG=true
+SESSION_NAME=morgafilms_sess
 
-# Base de datos
-CONEXIÓN_BD=mysql
-DB_HOST=127.0.0.1
-PUERTO_DB=3306
-BASE DE DATOS DB=morga_films
-DB_USERNAME=raíz
-CONTRASEÑA DE LA BASE DE DATOS=
+# DB
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1 o localhost
+PUERTO_DB=3306 (o el que venga de xampp)
+DB_NAME=morga_films
+DB_USERNAME=root
+CONTRASEÑA DE LA BASE DE DATOS= (tu contraseña de mysql)
 
 # Seguridad
 SESSION_KEY=LlaveSesionGenerada
@@ -103,35 +101,38 @@ MAIL_HOST=smtp.tu-dominio.com
 PUERTO DE CORREO=587
 MAIL_USER=usuario@dominio.com
 MAIL_PASS=contraseña_segura
-MAIL_FROM=ejemplo@dominio.com
+MAIL_FROM=example@dominio.com
 ```
 
-### â–¶ï¸ Ejecución del proyecto
+### Ejecución del proyecto
 
-``golpe
-# 6ï¸ âƒ£ Instala las dependencias
-instalación del compositor
+# 6. Instala las dependencias con:
+```
+composer install
 ```
 
-> ðŸ'¡ Esto instalará todas las librerías necesarias para el correcto funcionamiento del proyecto.
+desde la raiz del proyecto.
+
+> Esto instalará todas las librerías necesarias para el correcto funcionamiento del proyecto. <
 
 1. Verifica que **Apache** y **MySQL** estén corriendo en el panel de **XAMPP**.  
 2. Abra el proyecto en **Visual Studio Code**.  
 3. Si usas la extensión **PHP Server**, ejecuta desde la carpeta `/public`:
-   ``golpe
-   cd público
    ```
-   Luego haz clic derecho en `index.php` â†' **Ejecutar servidor PHP** o **Servidor PHP recargado**  
+   cd públic
+   ```
+   Luego haz clic derecho en `index.php`  **Run PHP server** o **Reloaded php server** 
+ 
 4. Abra en el navegador la URL:
    ```
    http://localhost/MORGA-FILMS/public/index.php
    ```
 
-> “… *Cada vez que inicias tu computadora, asegúrate de que Apache y MySQL están activos en XAMPP antes de abrir el sistema.*
+> *Cada vez que inicias tu computadora, asegúrate de que Apache y MySQL están activos en XAMPP antes de abrir el sistema.*
 
 ---
 
-## ðŸ'» Tecnologías utilizadas
+## Tecnologías utilizadas
 
 | Categoría | Tecnología | Versión | Propósito |
 |------------|-------------|----------|------------|
@@ -145,7 +146,7 @@ instalación del compositor
 
 ---
 
-## ðŸ§° Herramientas de desarrollo
+## Herramientas de desarrollo
 
 ![XAMPP](https://img.shields.io/badge/XAMPP-Localhost-F37623?style=for-the-badge&logo=xampp&logoColor=white)
 ![Código de Visual Studio](https://img.shields.io/badge/VS%20Code-Editor-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
@@ -154,24 +155,25 @@ instalación del compositor
 
 ---
 
-## ðŸŒ Hospedaje
+## Host
 
 ![Host local](https://img.shields.io/badge/Hosting-Localhost-lightgrey?style=for-the-badge)
 ![Producción](https://img.shields.io/badge/Producción-Por%20Configurar-yellow?style=for-the-badge)
 
 ---
 
-## ðŸ'¨â€ ðŸ'» Autor
+## 👨🏻‍💻 Autor
 
-**Desarrollador:** Hugo Andrés Borraz González  
-**Estudio:** Por HB Studios  
+**Desarrollador:** Hugo Andrés Borraz González y HB Studios. 
 **Correo:** [hbstudiosoficial14@gmail.com](mailto:hbstudiosoficial14@gmail.com)  
 **GitHub:** [@Hugoxter-twilght14](https://github.com/Hugoxter-twilght14)  
-**Portafolio:** [https://hb-studios-official.vercel.app/](https://hb-studios-official.vercel.app/)
+**Web oficial de HB Studios:** [https://hb-studios-official.vercel.app/](https://hb-studios-official.vercel.app/)
+
+**Mi portafolio:**
 
 ---
 
-## ðŸ“˜ Licencia
+## &copy Licencia
 
 Este proyecto está bajo la licencia **MIT**.  
 Puedes usar, modificar y distribuir libremente el código, **siempre que mantengas el crédito al autor original**.
