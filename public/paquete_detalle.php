@@ -53,7 +53,7 @@ $photos = $ph->fetchAll();
     <div class="card">
       <div class="card-body">
         <h3 class="card-title"><?=htmlspecialchars($pack['title'])?></h3>
-        <div class="mb-2 text-muted">Duración: <?=$pack['duration_minutes']?> min</div>
+        <div class="mb-2 text-muted">Duración: <?=$pack['duration_minutes']?> hrs</div>
         <div class="h4 mb-3">$<?=number_format($pack['price'],2)?></div>
         <p class="mb-4"><?=nl2br(htmlspecialchars($pack['description']))?></p>
 

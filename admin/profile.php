@@ -33,13 +33,13 @@ if ($_SERVER['REQUEST_METHOD']==='POST' && hash_equals($_SESSION['csrf'], $_POST
       $pass = $_POST['new_password'] ?? '';
       if (strlen($pass) < 6) throw new Exception('La nueva contraseña debe tener al menos 6 caracteres');
 
-      $stp = $pdo->prepare("SELECT password FROM users WHERE id=?");
+      $stp = $pdo->prepare("SELECT password_hash FROM users WHERE id=?");
       $stp->execute([$uid]);
       $hash = (string)$stp->fetchColumn();
       if (!password_verify($curr, $hash)) throw new Exception('La contraseña actual no es válida');
 
       $newHash = password_hash($pass, PASSWORD_BCRYPT);
-      $up = $pdo->prepare("UPDATE users SET password=? WHERE id=?");
+      $up = $pdo->prepare("UPDATE users SET password_hash=? WHERE id=?");
       $up->execute([$newHash,$uid]);
       $ok = 'Contraseña actualizada';
     }

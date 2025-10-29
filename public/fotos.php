@@ -4,7 +4,7 @@ require_once __DIR__ . '/../app/db.php';
 require_once __DIR__ . '/../lib/Pagination.php';
 
 $total = (int)$pdo->query("SELECT COUNT(*) FROM photos WHERE is_public=1")->fetchColumn();
-$pg = paginate_setup($total, 10);
+$pg = paginate_setup($total, 12);
 
 $st = $pdo->prepare("SELECT * FROM photos WHERE is_public=1
                      ORDER BY created_at DESC

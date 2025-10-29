@@ -27,7 +27,7 @@ function pagination_links(array $pg, string $path, array $extraParams=[]): strin
   // Prev
   $prevDisabled = $pg['page']==1 ? ' disabled' : '';
   $prevUrl = $pg['page']==1 ? '#' : $makeUrl($pg['page']-1);
-  $html .= '<li class="page-item'.$prevDisabled.'"><a class="page-link" href="'.$prevUrl.'">&laquo;</a></li>';
+  $html .= '<li class="page-item'.$prevDisabled.'"><a class="page-link" href="'.$prevUrl.'">Anterior</a></li>';
 
   // Ventana alrededor de la página actual
   $start = max(1, $pg['page'] - 2);
@@ -51,7 +51,7 @@ function pagination_links(array $pg, string $path, array $extraParams=[]): strin
   // Next
   $nextDisabled = $pg['page']==$pg['pages'] ? ' disabled' : '';
   $nextUrl = $pg['page']==$pg['pages'] ? '#' : $makeUrl($pg['page']+1);
-  $html .= '<li class="page-item'.$nextDisabled.'"><a class="page-link" href="'.$nextUrl.'">&raquo;</a></li>';
+  $html .= '<li class="page-item'.$nextDisabled.'"><a class="page-link" href="'.$nextUrl.'">Siguiente</a></li>';
   $html .= '</ul></nav>';
   return $html;
 }

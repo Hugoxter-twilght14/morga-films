@@ -14,11 +14,11 @@ $active = function(string $path) use ($script){ return strpos($script, $path)!==
 
   <div class="collapse navbar-collapse" id="nav">
     <ul class="navbar-nav mr-auto">
+      <?php if ($role==='admin'): ?>
+        <li class="nav-item"><a class="nav-link<?=$active('/admin/')?>" href="<?=base_url('/admin/dashboard.php')?>">Dashboard</a></li>
+      <?php endif; ?>
       <li class="nav-item"><a class="nav-link<?=$active('/public/paquetes.php')?>" href="<?=base_url('/public/paquetes.php')?>">Paquetes</a></li>
       <li class="nav-item"><a class="nav-link<?=$active('/public/fotos.php')?>" href="<?=base_url('/public/fotos.php')?>">Galería</a></li>
-      <?php if ($role==='admin'): ?>
-        <li class="nav-item"><a class="nav-link<?=$active('/admin/')?>" href="<?=base_url('/admin/dashboard.php')?>">Admin</a></li>
-      <?php endif; ?>
     </ul>
 
     <ul class="navbar-nav">

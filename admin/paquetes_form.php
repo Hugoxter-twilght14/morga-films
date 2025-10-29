@@ -3,7 +3,7 @@ require_once __DIR__ . '/../middleware/admin.php';
 require_once __DIR__ . '/../app/db.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
-$pack = ['title'=>'','description'=>'','price'=>'','duration_minutes'=>60,'status'=>'activo','cover_image'=>''];
+$pack = ['title'=>'','description'=>'','price'=>'','duration_minutes'=>0,'status'=>'activo','cover_image'=>''];
 
 if ($id) {
   $st = $pdo->prepare("SELECT * FROM packages WHERE id=?");
@@ -35,7 +35,7 @@ include __DIR__ . '/../partials/head.php';
   <div class="form-group"><label>Descripción</label><textarea class="form-control" name="description" rows="3"><?=htmlspecialchars($pack['description'])?></textarea></div>
   <div class="form-row">
     <div class="form-group col-md-4"><label>Precio</label><input class="form-control" type="number" step="0.01" name="price" value="<?=$pack['price']?>" required></div>
-    <div class="form-group col-md-4"><label>Duración (min)</label><input class="form-control" type="number" name="duration_minutes" value="<?=$pack['duration_minutes']?>" required></div>
+    <div class="form-group col-md-4"><label>Duración (horas)</label><input class="form-control" type="number" name="duration_minutes" value="<?=$pack['duration_minutes']?>" required></div>
     <div class="form-group col-md-4">
       <label>Estado</label>
       <select class="form-control" name="status">

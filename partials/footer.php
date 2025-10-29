@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <footer class="site-footer text-center py-4">
   <div class="footer-social mb-2">
     <!-- Facebook -->
-    <a class="social-link" href="https://facebook.com/tu_pagina" target="_blank" rel="noopener" aria-label="Facebook">
+    <a class="social-link" href="https://www.facebook.com/morgafilms" target="_blank" rel="noopener" aria-label="Facebook">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <!-- círculo opcional para consistencia visual -->
         <!-- <circle cx="12" cy="12" r="11" fill="none"></circle> -->
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </a>
 
     <!-- Instagram -->
-    <a class="social-link" href="https://instagram.com/tu_usuario" target="_blank" rel="noopener" aria-label="Instagram">
+    <a class="social-link" href="https://www.instagram.com/morgafilms/" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path fill="currentColor" d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm0 2a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H7z"/>
         <path fill="currentColor" d="M12 7.5A4.5 4.5 0 117.5 12 4.5 4.5 0 0112 7.5zm0 2A2.5 2.5 0 1014.5 12 2.5 2.5 0 0012 9.5z"/>
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     </a>
 
     <!-- TikTok -->
-    <a class="social-link" href="https://www.tiktok.com/@tu_usuario" target="_blank" rel="noopener" aria-label="TikTok">
+    <a class="social-link" href="https://www.tiktok.com/@morgafilms" target="_blank" rel="noopener" aria-label="TikTok">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path fill="currentColor"
           d="M13 2h3c.1 1 .3 2 .8 2.9.8 1.3 2 2.2 3.7 2.6V11c-2 0-3.9-.6-5.5-1.8v7A7.6 7.6 0 119 8.9V12a3.6 3.6 0 103.6 3V2z"/>
