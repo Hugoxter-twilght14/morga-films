@@ -73,7 +73,7 @@ nombrar la base de datos de la siguiente manera: > morga_films
 # 4. Importa el archivo SQL (morga_films.sql)
 # (descarga aqui: )
 
-# 5ï¸ âƒ£ Configura tus credenciales en el archivo .env
+# Configura tus credenciales en el archivo .env
 ```
 
 ### Ejemplo de configuración `.env`
@@ -160,18 +160,6 @@ desde la raiz del proyecto.
 ![Host local](https://img.shields.io/badge/Hosting-Localhost-lightgrey?style=for-the-badge)
 ![Producción](https://img.shields.io/badge/Producción-Por%20Configurar-yellow?style=for-the-badge)
 
----
-
-## 👨🏻‍💻 Autor
-
-**Desarrollador:** Hugo Andrés Borraz González y HB Studios. 
-**Correo:** [hbstudiosoficial14@gmail.com](mailto:hbstudiosoficial14@gmail.com)  
-**GitHub:** [@Hugoxter-twilght14](https://github.com/Hugoxter-twilght14)  
-**Web oficial de HB Studios:** [https://hb-studios-official.vercel.app/](https://hb-studios-official.vercel.app/)
-
-**Mi portafolio:**
-
----
 
 ## &copy Licencia
 

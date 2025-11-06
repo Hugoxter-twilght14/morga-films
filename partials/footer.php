@@ -56,4 +56,51 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body></html>
+
+<style>
+  /* Evita arrastrar imágenes y “guardar como” sencillo */
+  img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
+  /* Overlay cuando se detecta DevTools (opcional) */
+  .protect-overlay{position:fixed;inset:0;background:#000;opacity:.96;color:#fff;
+    display:flex;align-items:center;justify-content:center;z-index:999999; font-family:system-ui}
+  .protect-overlay.hidden{display:none}
+</style>
+
+<div id="protect-overlay" class="protect-overlay hidden">
+  <div style="text-align:center;max-width:560px;padding:16px">
+    <h3 style="margin:0 0 8px">Contenido protegido</h3>
+    <p style="margin:0;color:#bbb">La inspección del sitio está deshabilitada en esta vista.</p>
+  </div>
+</div>
+
+<script>
+(() => {
+  // 1) Desactivar menú contextual, arrastre de imágenes y combos típicos
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('dragstart', e => { if (e.target.tagName === 'IMG') e.preventDefault(); }, true);
+  document.addEventListener('keydown', e => {
+    const k = e.key.toUpperCase();
+    if (
+      k === 'F12' ||
+      (e.ctrlKey && ['U','S','P'].includes(k)) ||                // Ctrl+U (ver fuente), Ctrl+S (guardar), Ctrl+P (imprimir)
+      (e.ctrlKey && e.shiftKey && ['I','J','C'].includes(k))     // DevTools, consola, selector
+    ) { e.preventDefault(); e.stopPropagation(); }
+  }, true);
+
+  // 2) Detección “suave” de DevTools (no infalible, solo disuasivo)
+  const overlay = document.getElementById('protect-overlay');
+  const threshold = 150;
+  function detectDevTools(){
+    const w = window.outerWidth - window.innerWidth;
+    const h = window.outerHeight - window.innerHeight;
+    const open = (w > threshold) || (h > threshold);
+    overlay.classList.toggle('hidden', !open);
+    document.body.classList.toggle('devtools-open', open);
+  }
+  window.addEventListener('resize', detectDevTools);
+  setInterval(detectDevTools, 900);
+})();
+</script>
+
+</body>
+</html>
