@@ -1,0 +1,79 @@
+INSTRUCTIVO DE INSTALACIÓN — MORGA‑FILMS
+========================================
+
+1) REQUISITOS
+-------------
+• PHP 8.0 o superior (recomendado 8.2).
+• Servidor web Apache (XAMPP) o Nginx para producción.
+• MySQL/MariaDB 5.7/8.0
+• Composer
+
+2) ESTRUCTURA (resumen general)
+-----------------------
+/app/db.php                 → conexión PDO a MySQL
+/public/                    → páginas públicas (index, listados)
+/admin/                     → panel de administración, funciones y pestañas Admin.
+/partials/                  → Navbar, head y footer compartidos (componentes globales)
+/uploads/                   → imágenes subidas (debe ser escribible)
+/lib/                       → utilidades (helpers para agilizar funciones)
+/assets/                    → css themes (aplicar temas y Bootstrap)
+/.htaccess                  → reglas de Apache XAMPP.
+
+3) DESCARGA / COPIA DEL PROYECTO
+--------------------------------
+Opción A: XAMPP (Windows)
+1. Copia la carpeta del proyecto a: C:\xampp\htdocs\MORGA-FILMS
+2. Inicia Apache y MySQL desde el Panel de Control de XAMPP.
+3. Accede en el navegador a: http://localhost/MORGA-FILMS/public/index.php
+
+3) BASE DE DATOS
+----------------
+1. Crea la base de datos:
+   CREATE DATABASE morgafilms
+
+2. Importa el esquema del proyecto (El backup se llama morgafilms.sql).
+   
+5) CONFIGURACIÓN /app/db.php
+----------------------------
+Edita app/db.php para apuntar a tu base de acuerdo a tu archivo .env:
+
+6) DEPENDENCIAS FRONTEND (CDN)
+-------------------------------
+• Bootstrap/Swiper se cargan por CDN en las vistas. Verifica conectividad a:
+  - https://cdn.jsdelivr.net/npm/
+• Si el banner tipo slider no funciona, confirma que cargan:
+  <link  href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+11) PRIMERA EJECUCIÓN
+---------------------
+1. Inicia Apache y MySQL.
+2. Visita:  http://localhost/morga-films
+3. En el panel admin, crea los paquetes y sube fotos.
+4. Verifica que las imágenes se guarden en /uploads y se muestren correctamente.
+
+INSTALACIÓN:
+------------------------
+1. Debes descargar Composer desde el navegador y en el instaldaor das siguiente a todo, y añades la ruta de instalación al path o variables de entorno.
+
+2. En la raíz del proyecto, ejecutar en terminal: Composer install para instalar dependencias.
+
+3. descarga e instala XAMPP en su ultima versión.
+
+En visual estudio, decarga las siguientes extensiones:
+
+- Bootstrap 4, Font awesome 4, Font Awesome 5 Free & Pro snippets
+- PHP Intelephense
+- PHP Server
+
+Ejecutar proyecto:
+
+- En consola del proyecto escribir: xd public
+- buscar y abrir el archivo index.php que esta en la carpeta public del proyecto.
+- Una vez abierto, dar clic derecho en el codigo y dar clic en la opción PHP Server: Serve project o dar clic en la opcion PHP Server: Reload Server
+esto para que el proyecto corra en el navegador.
+
+asegurate de tener bien configurado tu archivo .env con las credenciales correctas de tu base de datos y verificar en tu archivo db.php que esta en la ruta app/db.php.
+y asegurate de que xampp y composer se hayan instalado correctamente y que xampp este ejecutando los servicios de apache y mysql.
+
+exporta el backup a tu nueva base de datos con el mismo nombre para que el programa no marque error y puedas acceder sin problemas.
